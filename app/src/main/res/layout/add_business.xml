@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/bnameid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:ems="10"
+        android:hint="Business Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/bdescid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/bnameid"
+        android:layout_below="@+id/bnameid"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        android:maxLines="4" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bdescid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:isIndicator="false" />
+
+    <EditText
+        android:id="@+id/baddid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/bdescid"
+        android:layout_below="@+id/ratingBar"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:hint="Address"
+        android:inputType="textPostalAddress" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="53dp"
+        android:layout_below="@+id/baddid"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/baddid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Select a City" />
+
+    <Button
+        android:id="@+id/submitbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit Entry"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="36dp" />
+
+    <Button
+        android:id="@+id/chooseid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/submitbutton"
+        android:layout_marginBottom="19dp"
+        android:layout_toStartOf="@+id/textView3"
+        android:text="Choose" />
+
+    <Button
+        android:id="@+id/uploadid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/chooseid"
+        android:layout_alignBottom="@+id/chooseid"
+        android:layout_alignEnd="@+id/ratingBar"
+        android:text="Upload" />
+</RelativeLayout>

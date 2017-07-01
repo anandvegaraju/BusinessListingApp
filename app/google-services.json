@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "612962485782",
+    "firebase_url": "https://assignment-bigtrade.firebaseio.com",
+    "project_id": "assignment-bigtrade",
+    "storage_bucket": "assignment-bigtrade.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612962485782:android:e8c650abf5c50b20",
+        "android_client_info": {
+          "package_name": "com.vegaraju.anand.assignment_bigtrade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612962485782-voh29mbq9n3fq9fg1hrr5rvtst98nmvt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vegaraju.anand.assignment_bigtrade",
+            "certificate_hash": "f9505350dbff1394f44b3bc797a47b75f35f8f07"
+          }
+        },
+        {
+          "client_id": "612962485782-bdlecdsn83g90uq395n900ps780qfkah.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCujQuWytkQuHMY9Sp1SeoaJR_zQRQzEjk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612962485782-bdlecdsn83g90uq395n900ps780qfkah.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
