@@ -3,7 +3,6 @@ package com.vegaraju.anand.assignment_bigtrade;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,30 +13,31 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 /**
  * Created by Anand on 02-07-2017.
  */
 
-public class AddBusiness extends AppCompatActivity {
+public class AddBusiness extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int PICK_IMAGE_REQUEST = 234;
     private EditText businessname, businessdesc, businessaddress;
     private Spinner spinner;
     private RatingBar ratingBar;
     private StorageReference mStorageRef;
     private Button upload,choose, submit;
     private String name, desc, addr, rating, city;
+    private Uri filePath;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +58,8 @@ public class AddBusiness extends AppCompatActivity {
         choose = (Button)findViewById(R.id.chooseid);
         upload = (Button)findViewById(R.id.uploadid);
 
+        choose.setOnClickListener(this);
+        upload.setOnClickListener(this);
 
 
 
@@ -75,13 +77,29 @@ public class AddBusiness extends AppCompatActivity {
 
                         //upload to db
 
-                        DatabaseReference busref = database.getReference(name);
+                        DatabaseReference busref = myRef.child(name);
+                        final DatabaseReference busnamesref = database.getReference("businessnames");
+                        busnamesref.addListenerForSingleValueEvent(
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        String blist = dataSnapshot.getValue(String.class);
+                                        blist = blist + "|" + name;
+                                        busnamesref.setValue(blist);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                }
+                        );
                         busref.child("Name").setValue(name);
                         busref.child("City").setValue(city);
                         busref.child("Description").setValue(desc);
                         busref.child("Rating").setValue(rating);
                         busref.child("Address").setValue(addr);
-
+                        Toast.makeText(getApplicationContext(),"Business added",Toast.LENGTH_SHORT).show();
                         Intent gotohome = new Intent(AddBusiness.this, BusinessListActivity.class);
                         startActivity(gotohome);
 
@@ -93,4 +111,52 @@ public class AddBusiness extends AppCompatActivity {
 
 
     }
+
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        //if the clicked button is choose
+        if (view == choose) {
+            showFileChooser();
+        }
+        else if (view == upload) {
+            uploadFile();
+        }
+
+    }
+
+
+    private void uploadFile() {
+        if (filePath != null) {
+
+            name = businessname.getText().toString();
+            StorageReference riversRef = mStorageRef.child("images/" + name + ".jpg");
+            riversRef.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
+    }
+
+
 }
