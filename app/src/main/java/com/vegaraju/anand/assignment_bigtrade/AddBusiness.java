@@ -84,7 +84,7 @@ public class AddBusiness extends AppCompatActivity implements View.OnClickListen
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                         String blist = dataSnapshot.getValue(String.class);
-                                        blist = blist + "|" + name;
+                                        blist = blist + " " + name;
                                         busnamesref.setValue(blist);
                                     }
 
