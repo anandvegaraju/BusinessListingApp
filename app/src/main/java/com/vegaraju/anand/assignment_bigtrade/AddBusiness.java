@@ -79,6 +79,10 @@ public class AddBusiness extends AppCompatActivity implements View.OnClickListen
 
                         DatabaseReference busref = myRef.child(name);
                         final DatabaseReference busnamesref = database.getReference("businessnames");
+                        final DatabaseReference citynamesref = database.getReference("cities");
+                        final DatabaseReference ratingsref = database.getReference("ratings");
+
+
                         busnamesref.addListenerForSingleValueEvent(
                                 new ValueEventListener() {
                                     @Override
@@ -86,6 +90,38 @@ public class AddBusiness extends AppCompatActivity implements View.OnClickListen
                                         String blist = dataSnapshot.getValue(String.class);
                                         blist = blist + " " + name;
                                         busnamesref.setValue(blist);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                }
+                        );
+
+                        citynamesref.addListenerForSingleValueEvent(
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        String clist = dataSnapshot.getValue(String.class);
+                                        clist = clist + " " + city;
+                                        citynamesref.setValue(clist);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                }
+                        );
+
+                        ratingsref.addListenerForSingleValueEvent(
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        String rlist = dataSnapshot.getValue(String.class);
+                                        rlist = rlist + " " + rating;
+                                        ratingsref.setValue(rlist);
                                     }
 
                                     @Override

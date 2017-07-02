@@ -17,6 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 /**
  * Created by Anand on 02-07-2017.
@@ -73,40 +76,54 @@ public class BusinessListActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.businesslist);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.custom_title_bar);
-        DatabaseReference listref = database.getInstance().getReference("businessnames");
-        listref.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String tmp = dataSnapshot.getValue(String.class);
-                        webs = tmp;
-                        web = webs.split(" ");
+        final DatabaseReference listref = database.getInstance().getReference();
 
 
+        Timer t = new Timer( );
+        t.scheduleAtFixedRate(new TimerTask() {
 
-                        CustomList adapter = new
-                                CustomList(BusinessListActivity.this, web,city,rating, imageId);
-                        list=(ListView)findViewById(R.id.listid);
-                        list.setAdapter(adapter);
-                        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+            @Override
+            public void run() {
+                listref.addListenerForSingleValueEvent(
+                        new ValueEventListener() {
                             @Override
-                            public void onItemClick(AdapterView<?> parent, View view,
-                                                    int position, long id) {
-                                Toast.makeText(getApplicationContext(), "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String tmp = dataSnapshot.child("businessnames").getValue(String.class);
+                                webs = tmp;
+                                web = webs.split(" ");
+                                String ctmp = dataSnapshot.child("cities").getValue(String.class);
+                                city = ctmp.split(" ");
+                                String rtmp = dataSnapshot.child("ratings").getValue(String.class);
+                                rating = rtmp.split(" ");
+                                CustomList adapter = new
+                                        CustomList(BusinessListActivity.this, web,city,rating, imageId);
+                                list=(ListView)findViewById(R.id.listid);
+                                list.setAdapter(adapter);
+                                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view,
+                                                            int position, long id) {
+                                        Toast.makeText(getApplicationContext(), "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+
 
                             }
-                        });
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        }
+                );
+
+            }
+        }, 1000,5000);
 
 
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                }
-        );
 
         addbusiness = (Button)findViewById(R.id.addBusinessid);
         addbusiness.setOnClickListener(
