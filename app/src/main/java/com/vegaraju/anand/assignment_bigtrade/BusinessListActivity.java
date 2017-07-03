@@ -75,6 +75,7 @@ public class BusinessListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.businesslist);
+        getSupportActionBar().setTitle("Business Listings");
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,R.layout.custom_title_bar);
         final DatabaseReference listref = database.getInstance().getReference();
 
@@ -105,6 +106,9 @@ public class BusinessListActivity extends AppCompatActivity {
                                     public void onItemClick(AdapterView<?> parent, View view,
                                                             int position, long id) {
                                         Toast.makeText(getApplicationContext(), "You Clicked at " +web[+ position], Toast.LENGTH_SHORT).show();
+                                        Intent showbizdetails = new Intent(BusinessListActivity.this, BusinessDetails.class);
+                                        showbizdetails.putExtra("name",web[position]);
+                                        startActivity(showbizdetails);
 
                                     }
                                 });

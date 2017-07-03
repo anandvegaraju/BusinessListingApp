@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".BusinessListActivity"/>
         <activity android:name=".AddBusiness"/>
+        <activity android:name=".BusinessDetails"/>
     </application>
 
 </manifest>
