@@ -171,6 +171,7 @@ public class AddBusiness extends AppCompatActivity implements View.OnClickListen
             showFileChooser();
         }
         else if (view == upload) {
+            Toast.makeText(getApplicationContext(),"Uploading..",Toast.LENGTH_LONG).show();
             uploadFile();
         }
 
