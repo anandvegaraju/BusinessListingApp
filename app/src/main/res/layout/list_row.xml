@@ -17,7 +17,8 @@
             android:id="@+id/list_image"
             android:layout_width="50dip"
             android:layout_height="50dip"
-            android:src="@drawable/common_google_signin_btn_icon_dark_normal"/>
+            android:src="@drawable/common_google_signin_btn_icon_dark_normal"
+            android:scaleType="fitXY"/>
 
     </LinearLayout>
 

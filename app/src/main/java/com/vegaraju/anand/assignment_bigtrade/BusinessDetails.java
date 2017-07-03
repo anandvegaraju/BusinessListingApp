@@ -20,12 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.io.IOException;
+
 
 /**
  * Created by Anand on 03-07-2017.
@@ -61,6 +59,7 @@ public class BusinessDetails extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent goback = new Intent(BusinessDetails.this, BusinessListActivity.class);
+                        mStorageRef.delete();
                         startActivity(goback);
                     }
                 }
