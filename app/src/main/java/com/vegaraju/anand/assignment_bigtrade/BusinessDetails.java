@@ -37,6 +37,7 @@ public class BusinessDetails extends AppCompatActivity {
     FirebaseDatabase database;
     private StorageReference mStorageRef;
     private ImageView imageView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,8 +81,11 @@ public class BusinessDetails extends AppCompatActivity {
                         desctext.setText(des);
                         addtext.setText(add);
                         citytext.setText(city);
-                        float f = Float.valueOf(rating);
-                        ratingBar.setRating(f);
+                        try{
+                            float f = Float.valueOf(rating);
+                            ratingBar.setRating(f);
+                        }catch (NullPointerException e){}
+
                     }
 
                     @Override
