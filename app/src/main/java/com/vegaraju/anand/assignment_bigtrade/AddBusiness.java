@@ -130,6 +130,7 @@ public class AddBusiness extends AppCompatActivity implements View.OnClickListen
                                     }
                                 }
                         );
+                        name = name.replaceAll("\\s","");
                         busref.child("Name").setValue(name);
                         busref.child("City").setValue(city);
                         busref.child("Description").setValue(desc);
@@ -182,6 +183,7 @@ public class AddBusiness extends AppCompatActivity implements View.OnClickListen
         if (filePath != null) {
 
             name = businessname.getText().toString();
+            name = name.replaceAll("\\s","");
             StorageReference riversRef = mStorageRef.child("images/" + name + ".jpg");
             riversRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

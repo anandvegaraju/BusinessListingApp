@@ -59,7 +59,6 @@ public class BusinessDetails extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent goback = new Intent(BusinessDetails.this, BusinessListActivity.class);
-                        mStorageRef.delete();
                         startActivity(goback);
                     }
                 }
